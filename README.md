@@ -10,10 +10,6 @@
     
 </p>
 
-## Description
-
-Demo API developed in NestJS to practice my skills.
-
 ## Project setup
 
 ```bash
