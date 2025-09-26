@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 
@@ -11,7 +11,7 @@ export class UsersController {
     return this.usersService.findById(id);
   }
 
-  @Post('info')
+  @Patch('info')
   async updateInfo(
     @CurrentUser('sub')
     id: string,
@@ -20,5 +20,10 @@ export class UsersController {
     name?: string,
   ) {
     return this.usersService.update(id, name, email, password);
+  }
+
+  @Delete()
+  async deleteUser(@CurrentUser('sub') id: string) {
+    return this.usersService.delete(id);
   }
 }

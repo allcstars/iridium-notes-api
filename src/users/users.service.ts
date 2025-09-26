@@ -39,4 +39,8 @@ export class UsersService {
       omit: { password: true },
     });
   }
+
+  async delete(id: string) {
+    return this.prisma.user.delete({ where: { id } });
+  }
 }
