@@ -1,6 +1,7 @@
 import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { CreateNoteDto, UpdateNoteDto } from './dto/note.dto';
 
 @Controller('notes')
 export class NotesController {
@@ -19,20 +20,18 @@ export class NotesController {
   @Post()
   async createNote(
     @CurrentUser('sub') userId: string,
-    title: string,
-    content: string,
+    createNoteDto: CreateNoteDto,
   ) {
-    return this.notesService.create(userId, title, content);
+    return this.notesService.create(userId, createNoteDto);
   }
 
   @Patch(':id')
   async updateNote(
     @CurrentUser('sub') userId: string,
     @Param('id') id: string,
-    title?: string,
-    content?: string,
+    updateNoteDto: UpdateNoteDto,
   ) {
-    return this.notesService.update(userId, id, title, content);
+    return this.notesService.update(userId, id, updateNoteDto);
   }
 
   @Delete(':id')
