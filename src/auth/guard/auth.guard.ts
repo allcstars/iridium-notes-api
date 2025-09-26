@@ -7,12 +7,14 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
+    private readonly usersService: UsersService,
   ) {}
 
   async canActivate(context: ExecutionContext) {
@@ -33,18 +35,20 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('Invalid authorization header');
     }
 
-    try {
-      const payload: { payload: string } = await this.jwtService.verifyAsync(
-        token,
-        {
-          secret: process.env.JWT_SECRET_KEY,
-        },
-      );
+    const payload = await this.jwtService.verifyAsync<{
+      sub: string;
+      email: string;
+    }>(token, {
+      secret: process.env.JWT_SECRET_KEY,
+    });
 
-      request['user'] = payload;
-    } catch (error) {
-      throw new UnauthorizedException(error);
+    const userValid = await this.usersService.findById(payload.sub);
+
+    if (!userValid) {
+      throw new UnauthorizedException('User no longer exists');
     }
+
+    request['user'] = payload;
 
     return true;
   }

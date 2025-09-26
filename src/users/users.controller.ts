@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { UpdateUserDto } from './dto/user.dto';
@@ -16,6 +16,7 @@ export class UsersController {
   async updateInfo(
     @CurrentUser('sub')
     id: string,
+    @Body()
     updateUserDto: UpdateUserDto,
   ) {
     return this.usersService.update(id, updateUserDto);

@@ -9,7 +9,9 @@ export class NotesService {
   async create(userId: string, createNoteDto: CreateNoteDto) {
     const { title, content } = createNoteDto;
 
-    return this.prisma.note.create({ data: { userId, title, content } });
+    return this.prisma.note.create({
+      data: { userId, title, content },
+    });
   }
 
   async update(userId: string, id: string, updateNoteDto: UpdateNoteDto) {
