@@ -7,14 +7,18 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guard/auth.guard';
+import { NotesController } from './notes/notes.controller';
+import { NotesService } from './notes/notes.service';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule],
-  controllers: [AppController],
+  imports: [PrismaModule, AuthModule, UsersModule, NotesModule],
+  controllers: [AppController, NotesController],
   providers: [
     AppService,
     AuthService,
     { provide: APP_GUARD, useClass: AuthGuard },
+    NotesService,
   ],
 })
 export class AppModule {}
