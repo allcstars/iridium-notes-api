@@ -16,17 +16,17 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @Get()
-  async allNotes(@CurrentUser('sub') userId: string) {
+  allNotes(@CurrentUser('sub') userId: string) {
     return this.notesService.findAll(userId);
   }
 
   @Get(':id')
-  async findNote(@CurrentUser('sub') userId: string, @Param('id') id: string) {
+  findNote(@CurrentUser('sub') userId: string, @Param('id') id: string) {
     return this.notesService.findById(userId, id);
   }
 
   @Post()
-  async createNote(
+  createNote(
     @CurrentUser('sub') userId: string,
     @Body()
     createNoteDto: CreateNoteDto,
@@ -35,7 +35,7 @@ export class NotesController {
   }
 
   @Patch(':id')
-  async updateNote(
+  updateNote(
     @CurrentUser('sub') userId: string,
     @Param('id') id: string,
     @Body()
@@ -45,10 +45,7 @@ export class NotesController {
   }
 
   @Delete(':id')
-  async deleteNote(
-    @CurrentUser('sub') userId: string,
-    @Param('id') id: string,
-  ) {
+  deleteNote(@CurrentUser('sub') userId: string, @Param('id') id: string) {
     return this.notesService.delete(userId, id);
   }
 }

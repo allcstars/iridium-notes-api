@@ -35,17 +35,23 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('Invalid authorization header');
     }
 
-    const payload = await this.jwtService.verifyAsync<{
-      sub: string;
-      email: string;
-    }>(token, {
-      secret: process.env.JWT_SECRET_KEY,
-    });
+    let payload: { sub: string; email: string };
+
+    try {
+      payload = await this.jwtService.verifyAsync<{
+        sub: string;
+        email: string;
+      }>(token, {
+        secret: process.env.JWT_SECRET_KEY,
+      });
+    } catch (error) {
+      throw new UnauthorizedException(error);
+    }
 
     const userValid = await this.usersService.findById(payload.sub);
 
     if (!userValid) {
-      throw new UnauthorizedException('User no longer exists');
+      throw new UnauthorizedException('User no longer exist');
     }
 
     request['user'] = payload;

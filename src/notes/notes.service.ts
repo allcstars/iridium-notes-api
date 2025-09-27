@@ -6,7 +6,7 @@ import { CreateNoteDto, UpdateNoteDto } from './dto/note.dto';
 export class NotesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(userId: string, createNoteDto: CreateNoteDto) {
+  create(userId: string, createNoteDto: CreateNoteDto) {
     const { title, content } = createNoteDto;
 
     return this.prisma.note.create({
@@ -35,7 +35,7 @@ export class NotesService {
     return note;
   }
 
-  async findAll(userId: string) {
+  findAll(userId: string) {
     return this.prisma.note.findMany({ where: { userId } });
   }
 

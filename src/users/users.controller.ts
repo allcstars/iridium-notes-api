@@ -8,12 +8,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('info')
-  async getInfo(@CurrentUser('sub') id: string) {
+  getInfo(@CurrentUser('sub') id: string) {
     return this.usersService.findById(id);
   }
 
   @Patch('info')
-  async updateInfo(
+  updateInfo(
     @CurrentUser('sub')
     id: string,
     @Body()
@@ -23,7 +23,7 @@ export class UsersController {
   }
 
   @Delete()
-  async deleteUser(@CurrentUser('sub') id: string) {
+  deleteUser(@CurrentUser('sub') id: string) {
     return this.usersService.delete(id);
   }
 }
