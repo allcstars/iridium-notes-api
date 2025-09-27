@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">Iridium Notes API - Demo</p>
+  <p align="center">Iridium Notes API</p>
     <p align="center">
     
 </p>
@@ -35,4 +35,4 @@ $ pnpm run start:prod
 
 ## License
 
-Iridium Notes API - Demo is [MIT licensed](https://github.com/allcstars/iridium-notes-api/blob/master/LICENSE).
+Iridium Notes API is [MIT licensed](https://github.com/allcstars/iridium-notes-api/blob/master/LICENSE).
